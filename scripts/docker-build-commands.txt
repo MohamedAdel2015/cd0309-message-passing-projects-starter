@@ -1,0 +1,15 @@
+docker build -t udaconnect-persons-api .
+docker tag udaconnect-persons-api maabdelfattah/nd064-udaconnect-persons-api:latest
+docker push maabdelfattah/nd064-udaconnect-persons-api:latest
+
+docker build -t udaconnect-connections-api .
+docker tag udaconnect-connections-api maabdelfattah/nd064-udaconnect-connections-api:latest
+docker push maabdelfattah/nd064-udaconnect-connections-api:latest
+
+docker build -t udaconnect-locations-grpc .
+docker tag udaconnect-locations-grpc maabdelfattah/nd064-udaconnect-locations-grpc:latest
+docker push maabdelfattah/nd064-udaconnect-locations-grpc:latest
+
+docker build -t udaconnect-locations-service .
+docker tag udaconnect-locations-service maabdelfattah/nd064-udaconnect-locations-service:latest
+docker push maabdelfattah/nd064-udaconnect-locations-service:latest

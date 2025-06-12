@@ -77,11 +77,18 @@ Afterwards, you can test that `kubectl` works by running a command like `kubectl
 
 ### Steps
 1. `kubectl apply -f deployment/db-configmap.yaml` - Set up environment variables for the pods
-2. `kubectl apply -f deployment/db-secret.yaml` - Set up secrets for the pods
-3. `kubectl apply -f deployment/postgres.yaml` - Set up a Postgres database running PostGIS
-4. `kubectl apply -f deployment/udaconnect-api.yaml` - Set up the service and deployment for the API
-5. `kubectl apply -f deployment/udaconnect-app.yaml` - Set up the service and deployment for the web app
-6. `sh scripts/run_db_command.sh <POD_NAME>` - Seed your database against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`)
+2. `kubectl apply -f deployment/kafka-configmap.yaml` - Set up kafka environment variables for the pods
+3. `kubectl apply -f deployment/db-secret.yaml` - Set up secrets for the pods
+4. `kubectl apply -f deployment/postgres.yaml` - Set up a Postgres database running PostGIS
+5. `kubectl apply -f kafka/` - Setup Kafka on Kubernates Cluster using below commands:
+6. `kubectl apply -f deployment/udaconnect-api.yaml` - Set up the service and deployment for the API
+7. `kubectl apply -f deployment/udaconnect-app.yaml` - Set up the service and deployment for the web app
+8. `kubectl apply -f deployment/udaconnect-persons-api.yaml` - Set up the service and deployment for Persons API
+9. `kubectl apply -f deployment/udaconnect-connections-api.yaml` - Set up the service and deployment for Connections API
+10. `kubectl apply -f deployment/udaconnect-locations-grpc.yaml` - Set up the service and deployment for Locations gRPC
+11. `kubectl apply -f deployment/udaconnect-locations-service.yaml` - Set up the service and deployment for Locations Service
+12. `sh scripts/run_db_command.sh <POD_NAME>` - Seed your database against the `postgres` pod. (`kubectl get pods` will give you the `POD_NAME`)
+
 
 Manually applying each of the individual `yaml` files is cumbersome but going through each step provides some context on the content of the starter project. In practice, we would have reduced the number of steps by running the command against a directory to apply of the contents: `kubectl apply -f deployment/`.
 
@@ -95,6 +102,10 @@ Once the project is up and running, you should be able to see 3 deployments and 
 These pages should also load on your web browser:
 * `http://localhost:30001/` - OpenAPI Documentation
 * `http://localhost:30001/api/` - Base path for API
+* `http://localhost:30002/` - OpenAPI Documentation for Persons
+* `http://localhost:30002/api/` - Base path for Persons
+* `http://localhost:30003/` - OpenAPI Documentation for Connections
+* `http://localhost:30003/api/` - Base path for Connections
 * `http://localhost:30000/` - Frontend ReactJS Application
 
 #### Deployment Note

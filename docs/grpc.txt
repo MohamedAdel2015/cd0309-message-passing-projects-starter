@@ -1,0 +1,11 @@
+gRPC Documentation:
+====================
+The request consists of 3 attributes which are person_id, latitude and longitude.
+
+message LocationMessage {
+    int32 person_id = 1;
+    string latitude = 2;
+    string longitude = 3;
+}
+
+The gRPC service is exposed to host machine over URL (http://localhost:30004), you can send test message by running "writer.py" inside "locations_grpc" by executing command "python writer.py".

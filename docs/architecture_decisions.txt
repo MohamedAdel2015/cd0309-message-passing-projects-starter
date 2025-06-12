@@ -1,0 +1,23 @@
+I have chosen below 3 message passing techniques to use:
+1) REST
+2) gRPC
+3) Kafka
+
+1) REST:
+=========
+It's the most straightforward message passing technique. It's choosen for all 
+integration from browser to backend in order not to introduce complexity as It's not 
+expected to recieve huge amount of requests from the Web Application.
+
+2) gRPC:
+=========
+Used for integration from Mobile Application to backend. It's expected that the Location 
+Service will have a very high load as it continously record the users locations, so gRPC 
+will provide the most efficient performance.
+
+3) Kafka:
+==========
+Used to enable fault tolerance and asyncrohonus processing during storing the location data. 
+It's expected to recieve a huge number of requests, so to avoid overloading the location 
+service with requests and enhance the performance, Kafka is introduced as buffering technique 
+between API layer and Database.
