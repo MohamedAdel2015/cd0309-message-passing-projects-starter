@@ -10,7 +10,7 @@ CREATE TABLE location (
     id SERIAL PRIMARY KEY,
     person_id INT NOT NULL,
     coordinate GEOMETRY NOT NULL,
-    creation_time TIMESTAMP NOT NULL DEFAULT NOW(),
+    creation_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (person_id) REFERENCES person(id)
 );
 CREATE INDEX coordinate_idx ON location (coordinate);
