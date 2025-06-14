@@ -1,0 +1,178 @@
+swagger: '2.0'
+basePath: /
+paths:
+  /api/persons:
+    post:
+      summary: Create a new person
+      description: Create a new person with first name, last name, and company name.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              first_name:
+                type: string
+              last_name:
+                type: string
+              company_name:
+                type: string
+            required:
+              - first_name
+              - last_name
+              - company_name
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              first_name:
+                type: string
+              last_name:
+                type: string
+              company_name:
+                type: string
+      operationId: post_persons_resource
+      tags:
+        - UdaConnect
+    get:
+      summary: Retrieve all persons
+      description: Get a list of all persons.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                company_name:
+                  type: string
+      operationId: get_persons_resource
+      tags:
+        - UdaConnect
+
+  /api/persons/{person_id}:
+    parameters:
+      - in: path
+        description: Unique ID for a given Person
+        name: person_id
+        required: true
+        type: integer
+    get:
+      summary: Retrieve a person by ID
+      description: Get details for a specific person.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              first_name:
+                type: string
+              last_name:
+                type: string
+              company_name:
+                type: string
+      operationId: get_person_resource
+      tags:
+        - UdaConnect
+
+  /api/persons/{person_id}/connection:
+    parameters:
+      - in: path
+        name: person_id
+        type: integer
+        required: true
+        description: Unique ID for a given Person
+      - in: query
+        name: start_date
+        type: string
+        required: true
+        description: Lower bound of date range (YYYY-MM-DD)
+      - in: query
+        name: end_date
+        type: string
+        required: true
+        description: Upper bound of date range (YYYY-MM-DD)
+      - in: query
+        name: distance
+        type: integer
+        required: false
+        description: Proximity to a given user in meters (default 5)
+    get:
+      summary: Find connections for a person
+      description: Find all persons who have been within a given distance of a given person within a date range.
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Success
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                person:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    first_name:
+                      type: string
+                    last_name:
+                      type: string
+                    company_name:
+                      type: string
+                location:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    person_id:
+                      type: integer
+                    coordinate:
+                      type: string
+                      description: WKT representation of the point
+                    creation_time:
+                      type: string
+                      format: date-time
+      operationId: get_person_connections
+      tags:
+        - UdaConnect
+
+info:
+  title: UdaConnect API
+  version: 0.1.0
+produces:
+  - application/json
+consumes:
+  - application/json
+tags:
+  - name: UdaConnect
+    description: Connections via geolocation.
+responses:
+  ParseError:
+    description: When a mask can't be parsed
+  MaskError:
+    description: When any error occurs on mask
